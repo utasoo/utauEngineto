@@ -12,6 +12,45 @@
 #switcher .recent .name{padding:12px;font-size:12px}
 .notiftoast{position:absolute;z-index:30;top:56px;left:12px;right:12px;background:#f8f8f9ee;border-radius:17px;padding:13px;box-shadow:0 6px 20px #0002;backdrop-filter:blur(15px);animation:open .25s ease;cursor:pointer}
 #lock .notif{margin-top:50px}
+
+/* Polished native-style surfaces */
+body{background:#15141b}#phone{box-shadow:0 0 55px #0004}
+.screen:not(.wall):not(.call){background:#fff}
+.status{font-variant-numeric:tabular-nums}.nav{height:54px;border-bottom:1px solid #f0f0f2}.nav button{min-width:32px;min-height:34px}.nav b{letter-spacing:-.45px}
+#messages,#phoneapp,#photos,#notes,#settings{background:#f5f5f9!important}
+#messages .nav,#phoneapp .nav,#photos .nav,#notes .nav,#settings .nav{background:#f5f5f9;border:0}
+#messages .nav b,#phoneapp .nav b,#photos .nav b,#notes .nav b,#settings .nav b{font-size:25px;font-weight:750}
+#messages .row,#phoneapp .row,#notes .row,#settings .row{background:white}
+#messages .row{min-height:73px}
+.search{background:#e8e8ee;font-size:16px}
+#notes #notebody{margin:12px;border-radius:13px;overflow:hidden}
+#settings>.row{margin:8px 16px;border-radius:12px;border:0}
+#settings>.row+.row{margin-top:2px}
+#x .post{padding:14px 13px}#x .avatar{background:#eee8f4}
+#x .postactions button{font-size:14px;padding:5px}
+#instagram .story{border-bottom:1px solid #f0f0f0}
+#instagram .story .avatar{border:3px solid #dc4c8c;outline:2px solid #ffb03b;outline-offset:1px}
+#instagram .igphoto{font-size:75px}
+.tabs{bottom:0;padding:12px 8px 24px;z-index:2}.tabs button{font-size:25px}
+.homebar{z-index:35;transition:background .2s}
+#switcher{padding:0;overflow:hidden;background:linear-gradient(145deg,#776f91ee,#b89aaeef 65%,#747d99ee)}
+#switcher.show{display:flex;flex-direction:column;justify-content:center}
+.switch-title{color:white;font-size:14px;padding:0 25px 20px;font-weight:600}
+.switch-track{display:flex;align-items:center;gap:14px;overflow-x:auto;padding:0 max(16px,calc((100% - 255px)/2));scroll-snap-type:x mandatory;scrollbar-width:none}
+.switch-track::-webkit-scrollbar{display:none}
+.switch-card{position:relative;flex:0 0 min(68vw,255px);height:min(62dvh,530px);border:0;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 18px 36px #18101f55;scroll-snap-align:center;transition:transform .25s ease;touch-action:pan-x}
+.switch-card:active{transform:scale(.96)}
+.switch-preview{position:absolute;inset:0;overflow:hidden;background:white;pointer-events:none}
+.switch-preview .screen{display:block!important;position:absolute;top:0;left:0;width:430px;height:850px;max-width:none;transform:scale(var(--preview-scale,.59));transform-origin:top left;animation:none!important}
+.switch-preview .screen .homebar{display:none}
+.switch-meta{display:flex;align-items:center;gap:8px;color:white;font-size:14px;padding:12px 0 0 10px}
+.switch-meta .miniicon{width:24px;height:24px;display:grid;place-items:center;background:#ffffff50;border-radius:6px}
+.switch-close{color:white;border:0;background:#ffffff2c;border-radius:16px;padding:10px 16px;margin:25px auto 0}
+#lock.pin-open .unlock{max-height:calc(100dvh - 155px);overflow-y:auto;bottom:25px}
+#lock.pin-open .keypad{gap:9px}
+#lock.pin-open .key{height:min(65px,9dvh);width:min(65px,9dvh)}
+#lock.pin-open .keypad{grid-template-columns:repeat(3,min(65px,9dvh))}
+@media(max-height:700px){#lock.pin-open .locktime{margin-top:0}#lock.pin-open .locktime .big{font-size:34px}#lock.pin-open .key{height:49px;width:49px}#lock.pin-open .keypad{grid-template-columns:repeat(3,49px);gap:6px}}
 </style></head><body><div id="phone"><section id="lock" class="screen active wall"><div class="status" style="color:white"><span id="ltop">9:41</span><span>●●● ▰</span></div><div class="locktime"><div class="date" id="ldate"></div><div class="big" id="lclock">9:41</div><div style="font-size:25px;margin-top:20px">🔒</div></div><div class="notif">💬 우타　<span style="float:right;font-size:12px">지금</span><div style="margin-top:5px">소오, 오늘도 잘 지냈어?</div></div><div class="unlock"><div>암호 입력</div><div class="pin" id="dots"></div><div class="keypad" id="keys"></div><div style="margin-top:14px;font-size:12px">취소 · 암호는 0205</div></div></section>
 <section id="home" class="screen wall"><div class="status" style="color:white"><span id="htime">9:41</span><span>●●● ▰</span></div><div class="apps" id="apps"></div><div class="dock" id="dock"></div></section>
 <section id="x" class="screen"><div class="status"><span id="xtime">9:41</span><div class="island"></div><span>●●● ▰</span></div><div class="nav"><button onclick="accounts()">🌷</button><b>𝕏</b><button onclick="searchPosts()">⌕</button></div><div class="content" id="xbody"></div><button class="fab" onclick="composePost()">＋</button><div class="tabs"><button onclick="renderX()">⌂</button><button onclick="searchPosts()">⌕</button><button onclick="showXProfile(current)">♙</button><button onclick="accounts()">☻</button></div></section>
@@ -51,9 +90,29 @@ const phoneEl=$('phone');
 phoneEl.addEventListener('touchstart',e=>{let t=e.touches[0];touchStart={x:t.clientX,y:t.clientY,time:Date.now()};gestureOnBar=e.target.closest('#bar')!==null},{passive:true});
 phoneEl.addEventListener('touchend',e=>{if(!touchStart)return;let t=e.changedTouches[0],dy=t.clientY-touchStart.y,dx=t.clientX-touchStart.x,elapsed=Date.now()-touchStart.time;
 if(active==='lock'&&dy < -55){$('lock').classList.add('pin-open')}
-else if((gestureOnBar||touchStart.y>innerHeight-55)&&dy < -65&&Math.abs(dx)<100){if(elapsed>330||dy < -160){showSwitcher()}else showApp('home')}
+else if((gestureOnBar||touchStart.y>phoneEl.getBoundingClientRect().bottom-55)&&dy < -65&&Math.abs(dx)<100){if(elapsed>330||dy < -160){showSwitcher()}else showApp('home')}
 touchStart=null},{passive:true});
-function showSwitcher(){if(active==='lock')return;let items=[...new Set([active,...recentApps])].filter(x=>x!=='home'&&x!=='lock'&&x!=='calling');if(!items.length){showApp('home');return}let names={x:'𝕏',instagram:'Instagram',messages:'메시지',chatview:'메시지',phoneapp:'전화',photos:'사진',notes:'메모',settings:'설정'};$('switcher').innerHTML='<div style="color:white;margin:0 8px 22px;font-size:17px">최근 사용한 앱 <button style="float:right;background:none;border:0;color:white" onclick="showApp(\'home\')">완료</button></div>'+items.map(id=>'<button class="recent" onclick="showApp(\''+id+'\')"><div class="preview">'+(names[id]||id)+'</div><div class="name">'+(names[id]||id)+'</div></button>').join('');$('switcher').classList.add('show')}
+function showSwitcher(){
+if(active==='lock')return;
+let ids=[...new Set([active,...recentApps])].filter(x=>x!=='home'&&x!=='lock'&&x!=='calling');
+if(!ids.length){showApp('home');return}
+const labels={x:['𝕏','X'],instagram:['◎','Instagram'],messages:['💬','메시지'],chatview:['💬','메시지'],phoneapp:['☎','전화'],photos:['🌄','사진'],notes:['📝','메모'],settings:['⚙','설정']};
+let switcher=$('switcher');
+switcher.innerHTML='<div class="switch-title">최근 사용한 앱</div><div class="switch-track" id="switchtrack"></div><button class="switch-close" onclick="showApp(\'home\')">홈 화면으로</button>';
+let track=$('switchtrack');
+ids.forEach(id=>{
+let card=document.createElement('div');card.className='switch-item';
+let b=document.createElement('button');b.className='switch-card';b.setAttribute('aria-label',(labels[id]?.[1]||id)+' 열기');
+let preview=document.createElement('div');preview.className='switch-preview';
+let source=$(id);let clone=source.cloneNode(true);clone.removeAttribute('id');clone.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));clone.querySelectorAll('input,button,textarea').forEach(el=>el.setAttribute('tabindex','-1'));
+preview.appendChild(clone);b.appendChild(preview);b.onclick=()=>showApp(id);
+let meta=document.createElement('div');meta.className='switch-meta';meta.innerHTML='<span class="miniicon">'+(labels[id]?.[0]||'◉')+'</span><span>'+(labels[id]?.[1]||id)+'</span>';
+card.append(b,meta);track.appendChild(card);
+});
+switcher.classList.add('show');
+function resizePreviews(){track.querySelectorAll('.switch-card').forEach(card=>{let w=card.clientWidth,h=card.clientHeight;card.style.setProperty('--preview-scale',Math.min(w/430,h/850))})}
+requestAnimationFrame(resizePreviews);
+}
 let noticeTimer=null;
 const notifications=[['messages','우타','소오, 지금 뭐 하고 있어?'],['x','테토','새로운 트윗을 올렸습니다.'],['instagram','모모','새로운 스토리를 올렸습니다.'],['messages','레이','오늘 날씨 좋네.'],['x','데포코','새 게시물이 있습니다.']];
 let notificationIndex=0;
