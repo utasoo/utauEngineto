@@ -94,10 +94,34 @@ body{background:#15141b}#phone{box-shadow:0 0 55px #0004}
 #dots.wrong{animation:pin-shake .35s ease}
 @keyframes pin-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-12px)}50%{transform:translateX(12px)}75%{transform:translateX(-6px)}}
 @media(max-height:680px){.pass-island{height:35px;margin-top:8px}.pass-title{margin:18px auto 10px;font-size:17px;min-height:45px}#lock.pin-open .pin{margin-bottom:13px}#lock.pin-open .keypad{gap:7px 25px}#lock.pin-open .key{width:58px;height:58px}#lock.pin-open .keypad{grid-template-columns:repeat(3,58px)}.keynum{font-size:29px}.pass-bottom{margin-bottom:9px}}
-</style></head><body><div id="phone"><section id="lock" class="screen active wall"><div class="status" style="color:white"><span id="ltop">9:41</span><span>●●● ▰</span></div><div class="locktime"><div class="date" id="ldate"></div><div class="big" id="lclock">9:41</div><div style="font-size:25px;margin-top:20px">🔒</div></div><div class="notif">💬 우타　<span style="float:right;font-size:12px">지금</span><div style="margin-top:5px">소오, 오늘도 잘 지냈어?</div></div><div class="unlock"><div class="pass-island"><span>🔒</span><span class="face-symbol">◉</span></div><div class="pass-title">위로 쓸어올려 Face ID 사용 또는 암호 입력</div><div class="pin" id="dots"></div><div class="keypad" id="keys"></div><div class="pass-bottom"><button type="button" onclick="emergencyInfo()">긴급 상황</button><button type="button" onclick="cancelPin()">취소</button></div></div></section>
+
+/* Closer native visual hierarchy across apps */
+#x .x-header{height:49px;border:0}
+#x .x-header b{font-size:28px;font-weight:650}
+#x .x-feed-tabs{display:grid;grid-template-columns:1fr 1fr;height:47px;border-bottom:1px solid #e8e8ed}
+#x .x-feed-tabs button{background:white;border:0;font-size:15px;font-weight:650;position:relative}
+#x .x-feed-tabs button:first-child:after{content:"";position:absolute;width:58px;height:4px;border-radius:5px;background:#1d9bf0;bottom:0;left:calc(50% - 29px)}
+#x .post{gap:10px;border-bottom:1px solid #eff1f3}
+#x .postmain>div:first-child{font-size:15px}
+#x .post p{line-height:1.4;margin:6px 0 12px}
+#x .postactions{color:#536471;font-size:14px}
+#x .postactions button{min-width:45px;text-align:left}
+#x .tabs{border-top:1px solid #eff1f3}
+#x .fab{background:#1d9bf0;box-shadow:0 4px 14px #0003}
+#instagram .nav{border-bottom:1px solid #efefef}
+#instagram .tabs{border-top:1px solid #efefef}
+#chatview .chat{background:#fff}
+#chatview .bubble{font-size:16px;line-height:1.4}
+#chatview .bubble.me{background:#007aff}
+#chatview .compose button{background:#007aff;border-radius:50%;width:36px;height:36px;padding:0}
+#messages .row .avatar{width:52px;height:52px}
+#photos .iggrid{gap:2px}
+#notes .nav b{color:#171717}
+#phoneapp .tabs{background:#f9f9fbee}
+</style></head><body><div id="phone"><section id="lock" class="screen active wall"><div class="status" style="color:white"><span id="ltop">9:41</span><span>●●● ▰</span></div><div class="locktime"><div class="date" id="ldate"></div><div class="big" id="lclock">9:41</div></div><div class="notif">💬 우타　<span style="float:right;font-size:12px">지금</span><div style="margin-top:5px">소오, 오늘도 잘 지냈어?</div></div><div class="unlock"><div class="pass-island"><span class="face-symbol">◉</span></div><div class="pass-title">위로 쓸어올려 Face ID 사용 또는 암호 입력</div><div class="pin" id="dots"></div><div class="keypad" id="keys"></div><div class="pass-bottom"><button type="button" onclick="emergencyInfo()">긴급 상황</button><button type="button" onclick="cancelPin()">취소</button></div></div></section>
 <section id="home" class="screen wall"><div class="status" style="color:white"><span id="htime">9:41</span><span>●●● ▰</span></div><div class="apps" id="apps"></div><div class="dock" id="dock"></div></section>
-<section id="x" class="screen"><div class="status"><span id="xtime">9:41</span><div class="island"></div><span>●●● ▰</span></div><div class="nav"><button onclick="accounts()">🌷</button><b>𝕏</b><button onclick="searchPosts()">⌕</button></div><div class="content" id="xbody"></div><button class="fab" onclick="composePost()">＋</button><div class="tabs"><button onclick="renderX()">⌂</button><button onclick="searchPosts()">⌕</button><button onclick="showXProfile(current)">♙</button><button onclick="accounts()">☻</button></div></section>
-<section id="instagram" class="screen"><div class="status"><span>9:41</span><div class="island"></div><span>●●● ▰</span></div><div class="nav"><b style="font-family:cursive;font-size:25px">Instagram</b><div><button onclick="newIg()">⊞</button><button onclick="showApp('messages')">♡</button></div></div><div class="content" id="igbody"></div><div class="tabs"><button onclick="renderIg()">⌂</button><button onclick="igExplore()">⌕</button><button onclick="newIg()">⊞</button><button onclick="igProfile()">◉</button></div></section>
+<section id="x" class="screen"><div class="status"><span id="xtime">9:41</span><div class="island"></div><span>●●● ▰</span></div><div class="nav x-header"><button onclick="accounts()">◉</button><b>𝕏</b><button onclick="searchPosts()">⌕</button></div><div class="content" id="xbody"></div><button class="fab" onclick="composePost()">＋</button><div class="tabs"><button onclick="renderX()">⌂</button><button onclick="searchPosts()">⌕</button><button onclick="showXProfile(current)">♙</button><button onclick="accounts()">☻</button></div></section>
+<section id="instagram" class="screen"><div class="status"><span>9:41</span><div class="island"></div><span>●●● ▰</span></div><div class="nav"><b style="font-family:cursive;font-size:25px;letter-spacing:-1px">Instagram</b><div><button onclick="newIg()">⊞</button><button onclick="showApp('messages')">♡</button></div></div><div class="content" id="igbody"></div><div class="tabs"><button onclick="renderIg()">⌂</button><button onclick="igExplore()">⌕</button><button onclick="newIg()">⊞</button><button onclick="igProfile()">◉</button></div></section>
 <section id="messages" class="screen"><div class="status"><span>9:41</span><div class="island"></div><span>●●● ▰</span></div><div class="nav"><button class="back" onclick="showApp('home')">‹</button><b>메시지</b><button class="blue" onclick="newChat()">▣</button></div><input class="search" placeholder="검색" oninput="filterChats(this.value)"><div id="msgbody" class="content"></div></section>
 <section id="chatview" class="screen"><div class="status"><span>9:41</span><div class="island"></div><span>●●● ▰</span></div><div class="nav"><button class="back" onclick="showApp('messages')">‹ 메시지</button><b id="chatname">우타</b><button class="blue" onclick="startCall(chatTarget)">☎</button></div><div class="chat" id="chatbody"></div><form class="compose" onsubmit="sendMsg(event)"><input id="msginput" placeholder="iMessage" autocomplete="off"><button>↑</button></form></section>
 <section id="phoneapp" class="screen"><div class="status"><span>9:41</span><div class="island"></div><span>●●● ▰</span></div><div class="nav"><b>전화</b><button class="blue" onclick="newContact()">＋</button></div><div class="content" id="phonebody"></div><div class="tabs"><button onclick="phoneRecent()">◷</button><button onclick="phoneContacts()">♙</button><button onclick="phoneDial()">▦</button></div></section>
